@@ -12,11 +12,10 @@ const Header = () => {
           alt="Argent Bank Logo"
           className="main-nav-logo-image"
         />
-        <h1 class="sr-only">Argent Bank</h1>
+        <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <Link to="/login" className="main-nav-item">
-        {" "}
-        <i class="fa fa-user-circle"></i>
+        <i className="fa fa-user-circle"></i>
         Sign In
       </Link>
     </div>

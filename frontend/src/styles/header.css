@@ -11,6 +11,7 @@
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
 }
+
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -30,6 +31,10 @@
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+}
+
+.main-nav-item i {
+  margin-right: 0.3rem;
 }
 
 .main-nav-item:hover {
