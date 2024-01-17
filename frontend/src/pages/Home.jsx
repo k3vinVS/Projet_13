@@ -12,16 +12,16 @@ import iconMoney from "../assets/icon-money.png";
 import iconSecurity from "../assets/icon-security.png";
 
 // CONTENTS FOR COMPONENTS FEATURES -----
-import { contentFeature } from "../mocks/data";
+import { contentFeature } from "../mocks/featuresData";
 
 // STYLES -----
 import "../index.css";
 
 const Home = () => {
   return (
-    <div>
+    <body>
       <Header />
-      <div className="main">
+      <main className="main">
         <Hero />
         <section className="features">
           <Features
@@ -40,9 +40,9 @@ const Home = () => {
             content={contentFeature[2].content}
           />
         </section>
-      </div>
+      </main>
       <Footer />
-    </div>
+    </body>
   );
 };
 
