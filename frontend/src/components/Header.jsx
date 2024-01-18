@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+// STYLES -----
 import logo from "../assets/argentBankLogo.png";
+import "../index.css";
 import "../styles/header.css";
 
 const Header = () => {

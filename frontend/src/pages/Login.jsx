@@ -8,11 +8,11 @@ import InputForm from "../components/InputForm";
 
 // STYLES -----
 import "../index.css";
-import "../styles/inputForm.css";
+import "../styles/login.css";
 
 const Login = () => {
   return (
-    <body>
+    <div className="container">
       <Header />
       <main className="main bg-dark">
         <section className="sign-in-content">
@@ -43,11 +43,14 @@ const Login = () => {
             <Link to="/user" className="sign-in-button">
               Sign In
             </Link>
+            {/* <Link>
+              <button className="sign-in-button">Sign In</button>
+            </Link> */}
           </form>
         </section>
       </main>
       <Footer />
-    </body>
+    </div>
   );
 };
 

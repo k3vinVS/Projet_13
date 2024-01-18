@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // COMPONENTS -----
 import Header from "../components/Header";
@@ -6,26 +6,37 @@ import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import Features from "../components/Features";
 
-// ICONS FOR COMPONENTS FEATURES -----
-import iconChat from "../assets/icon-chat.png";
-import iconMoney from "../assets/icon-money.png";
-import iconSecurity from "../assets/icon-security.png";
-
 // CONTENTS FOR COMPONENTS FEATURES -----
-import { contentFeature } from "../mocks/featuresData";
+import { contentFeature } from "../mocks/data";
 
 // STYLES -----
 import "../index.css";
+import "../styles/features.css";
 
 const Home = () => {
+  const [features, setFeatures] = useState([]);
+  useEffect(() => {
+    setFeatures(contentFeature);
+  }, []);
+
   return (
-    <body>
+    <div className="container">
       <Header />
       <main className="main">
         <Hero />
         <section className="features">
-          <Features
-            img={iconChat}
+          {features.map((feature, index) => (
+            <Features
+              key={index}
+              img={feature.image}
+              title={feature.title}
+              content={feature.content}
+            />
+          ))}
+
+          {/* <Features
+            // img={iconChat}
+            img={contentFeature[0].image}
             title={contentFeature[0].title}
             content={contentFeature[0].content}
           />
@@ -38,11 +49,11 @@ const Home = () => {
             img={iconSecurity}
             title={contentFeature[2].title}
             content={contentFeature[2].content}
-          />
+          /> */}
         </section>
       </main>
       <Footer />
-    </body>
+    </div>
   );
 };
 
