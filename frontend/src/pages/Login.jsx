@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 // REDUX -----
 import { useDispatch } from "react-redux";
-import { setUserData } from "../feature/userSlice";
+// import { setUserData } from "../feature/userSlice";
 
 // COMPONENTS -----
 import Header from "../components/Header";
@@ -18,7 +17,7 @@ import "../styles/login.css";
 
 const Login = () => {
   const formRef = useRef();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,13 +39,6 @@ const Login = () => {
     } catch (error) {
       console.log("Error: ", error);
     }
-
-    // await axios
-    //   .post("http://localhost:3001/api/v1/user/login", userData)
-    //   .then(() => {
-    //     dispatch(setUserData(userData));
-    //     formRef.current.reset();
-    //   });
   };
 
   return (
