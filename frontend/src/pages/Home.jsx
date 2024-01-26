@@ -9,12 +9,16 @@ import Features from "../components/Features";
 // CONTENTS FOR COMPONENTS FEATURES -----
 import { contentFeature } from "../mocks/data";
 
+// REDUX -----
+// import { useDispatch, useSelector } from "react-redux";
+
 // STYLES -----
 import "../index.css";
 import "../styles/features.css";
 
 const Home = () => {
   const [features, setFeatures] = useState([]);
+
   useEffect(() => {
     setFeatures(contentFeature);
   }, []);
@@ -33,23 +37,6 @@ const Home = () => {
               content={feature.content}
             />
           ))}
-
-          {/* <Features
-            // img={iconChat}
-            img={contentFeature[0].image}
-            title={contentFeature[0].title}
-            content={contentFeature[0].content}
-          />
-          <Features
-            img={iconMoney}
-            title={contentFeature[1].title}
-            content={contentFeature[1].content}
-          />
-          <Features
-            img={iconSecurity}
-            title={contentFeature[2].title}
-            content={contentFeature[2].content}
-          /> */}
         </section>
       </main>
       <Footer />

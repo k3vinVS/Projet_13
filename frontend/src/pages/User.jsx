@@ -15,6 +15,7 @@ import "../styles/accountWrapper.css";
 
 const User = () => {
   const [usersContent, setUsersContent] = useState([]);
+
   useEffect(() => {
     setUsersContent(amountContent);
   }, []);
@@ -39,22 +40,6 @@ const User = () => {
             description={content.description}
           />
         ))}
-
-        {/* <AccountWrapper
-          title={amountContent[0].title}
-          amount={amountContent[0].amount}
-          description={amountContent[0].description}
-        />
-        <AccountWrapper
-          title={amountContent[1].title}
-          amount={amountContent[1].amount}
-          description={amountContent[1].description}
-        />
-        <AccountWrapper
-          title={amountContent[2].title}
-          amount={amountContent[2].amount}
-          description={amountContent[2].description}
-        /> */}
       </main>
       <Footer />
     </div>
