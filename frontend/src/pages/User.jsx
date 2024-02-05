@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import { useSelector } from "react-redux";
 
 // COMPONENTS -----
 import Header from "../components/Header";
@@ -12,13 +13,16 @@ import { amountContent } from "../mocks/data";
 import "../index.css";
 import "../styles/user.css";
 import "../styles/accountWrapper.css";
+import { useSelector } from "react-redux";
 
 const User = () => {
   const [usersContent, setUsersContent] = useState([]);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     setUsersContent(amountContent);
   }, []);
+
   return (
     <div className="container">
       <Header />
@@ -27,7 +31,7 @@ const User = () => {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {currentUser.firstName} {currentUser.lastName}!
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>

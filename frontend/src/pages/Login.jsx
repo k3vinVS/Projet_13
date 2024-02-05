@@ -1,10 +1,14 @@
-import React, { useRef } from "react";
-// import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 // REDUX -----
-import { useDispatch } from "react-redux";
-// import { setUserData } from "../feature/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUserStart,
+  setUserData,
+  setUserFailure,
+} from "../feature/userSlice";
 
 // COMPONENTS -----
 import Header from "../components/Header";
@@ -14,30 +18,43 @@ import InputForm from "../components/InputForm";
 // STYLES -----
 import "../index.css";
 import "../styles/login.css";
+import { getUserProfile } from "../services/api";
 
 const Login = () => {
-  const formRef = useRef();
-  // const dispatch = useDispatch();
+  const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+    // console.log(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = {
-      email: formRef.current[0].value,
-      password: formRef.current[1].value,
-    };
-    console.log(userData);
     try {
+      dispatch(setUserStart());
       const res = await fetch("http://localhost:3001/api/v1/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
+
+      if (data.status === 400) {
+        dispatch(setUserFailure(data.message));
+        return;
+      }
+      const userToken = data.body.token;
+      const userData = await getUserProfile(userToken);
+      dispatch(setUserData(userData.body));
+      navigate("/user/profile/");
     } catch (error) {
-      console.log("Error: ", error);
+      dispatch(setUserFailure(error.message));
     }
   };
 
@@ -48,13 +65,14 @@ const Login = () => {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form onSubmit={(e) => handleSubmit(e)} ref={formRef}>
+          <form onSubmit={handleSubmit}>
             <InputForm
               className="input-wrapper"
               htmlFor="username"
               content="Username"
               type="text"
-              id="username"
+              id="email"
+              handleChange={handleChange}
             />
             <InputForm
               className="input-wrapper"
@@ -62,6 +80,7 @@ const Login = () => {
               content="Password"
               type="password"
               id="password"
+              handleChange={handleChange}
             />
             <InputForm
               className="input-remember"
@@ -81,10 +100,11 @@ const Login = () => {
                 Sign In
               </button>
             </Link> */}
-            <button className="sign-in-button" type="submit">
-              Sign In
+            <button disabled={loading} className="sign-in-button" type="submit">
+              {loading ? "Loading..." : "Sign In"}
             </button>
           </form>
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </section>
       </main>
       <Footer />
