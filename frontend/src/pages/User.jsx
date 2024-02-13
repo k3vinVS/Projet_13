@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
 
 // COMPONENTS -----
 import Header from "../components/Header";
@@ -13,38 +12,77 @@ import { amountContent } from "../mocks/data";
 import "../index.css";
 import "../styles/user.css";
 import "../styles/accountWrapper.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import UserNameChange from "../components/UserNameChange";
+import {
+  setUserStart,
+  setUserData,
+  setUserFailure,
+} from "../feature/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
   const [usersContent, setUsersContent] = useState([]);
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [userChange, setUserChange] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
+  const [formData, setFormData] = useState(() => {
+    const savedUser = localStorage.getItem("userData");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  console.log(formData);
+  console.log(currentUser);
 
   useEffect(() => {
     setUsersContent(amountContent);
-  }, []);
+    dispatch(setUserData(formData));
+    if (!formData) {
+      navigate("/user/login");
+    }
+  }, [dispatch, navigate, formData]);
 
   return (
     <div className="container">
       <Header />
-      <main className="main bg-dark">
-        <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            {currentUser.firstName} {currentUser.lastName}!
-          </h1>
-          <button className="edit-button">Edit Name</button>
-        </div>
-        <h2 className="sr-only">Accounts</h2>
-        {usersContent.map((content, index) => (
-          <AccountWrapper
-            key={index}
-            title={content.title}
-            amount={content.amount}
-            description={content.description}
-          />
-        ))}
-      </main>
+      {currentUser !== null ? (
+        <main className="main bg-dark">
+          <div className="header">
+            <h1>
+              Welcome back
+              <br />
+              {currentUser.firstName} {currentUser.lastName}!
+            </h1>
+            <div>
+              {userChange ? (
+                <form>
+                  <UserNameChange
+                    currentUser={currentUser}
+                    setUserChange={setUserChange}
+                  />
+                </form>
+              ) : (
+                <button
+                  className="edit-button"
+                  onClick={() => setUserChange(true)}
+                >
+                  Edit Name
+                </button>
+              )}
+            </div>
+            <h2 className="sr-only">Accounts</h2>
+            {usersContent.map((content, index) => (
+              <AccountWrapper
+                key={index}
+                title={content.title}
+                amount={content.amount}
+                description={content.description}
+              />
+            ))}
+          </div>
+        </main>
+      ) : null}
       <Footer />
     </div>
   );

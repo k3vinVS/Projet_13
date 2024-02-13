@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
@@ -19,12 +19,17 @@ import InputForm from "../components/InputForm";
 import "../index.css";
 import "../styles/login.css";
 import { getUserProfile } from "../services/api";
+import { getUserToken } from "../services/api";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+
+  // if (currentUser === null) {
+  //   dispatch(setUserData(formData));
+  // }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -36,22 +41,15 @@ const Login = () => {
 
     try {
       dispatch(setUserStart());
-      const res = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      const userTokenData = await getUserToken(formData);
+      const userToken = userTokenData.body.token;
+      localStorage.setItem("userToken", userToken);
 
-      if (data.status === 400) {
-        dispatch(setUserFailure(data.message));
-        return;
-      }
-      const userToken = data.body.token;
       const userData = await getUserProfile(userToken);
-      dispatch(setUserData(userData.body));
+      // console.log(userData);
+      dispatch(setUserData(userData));
+
+      // dispatch(setUserData(formData));
       navigate("/user/profile/");
     } catch (error) {
       dispatch(setUserFailure(error.message));
