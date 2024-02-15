@@ -32,8 +32,8 @@ const User = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(formData);
-  console.log(currentUser);
+  // console.log(formData);
+  // console.log(currentUser);
 
   useEffect(() => {
     setUsersContent(amountContent);
@@ -42,6 +42,23 @@ const User = () => {
       navigate("/user/login");
     }
   }, [dispatch, navigate, formData]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem("userData", JSON.stringify(formData));
+    dispatch(setUserData(formData));
+    setUserChange(false);
+    console.log("Update successfully", formData);
+    return formData;
+  };
 
   return (
     <div className="container">
@@ -56,10 +73,11 @@ const User = () => {
             </h1>
             <div>
               {userChange ? (
-                <form>
+                <form onSubmit={handleSubmit}>
                   <UserNameChange
                     currentUser={currentUser}
                     setUserChange={setUserChange}
+                    handleChange={handleChange}
                   />
                 </form>
               ) : (

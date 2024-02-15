@@ -27,10 +27,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const { currentUser, loading, error } = useSelector((state) => state.user);
 
-  // if (currentUser === null) {
-  //   dispatch(setUserData(formData));
-  // }
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
     // console.log(e.target.value);

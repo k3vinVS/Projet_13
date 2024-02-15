@@ -1,3 +1,18 @@
+// GET THE TOKEN OF THE USER -----
+export const getUserToken = async (formData) => {
+  const res = await fetch("http://localhost:3001/api/v1/user/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  const data = await res.json();
+
+  return data;
+};
+
+// GET THE DATA OF THE USER -----
 export const getUserProfile = async (token) => {
   try {
     const res = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -19,15 +34,9 @@ export const getUserProfile = async (token) => {
   }
 };
 
-export const getUserToken = async (formData) => {
-  const res = await fetch("http://localhost:3001/api/v1/user/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-  const data = await res.json();
-
-  return data;
+// DELETE THE LOCALSTORAGE OF USER -----
+export const deleteUserStorage = () => {
+  const deleteUserData = localStorage.clear();
+  console.log("test");
+  return deleteUserData;
 };
