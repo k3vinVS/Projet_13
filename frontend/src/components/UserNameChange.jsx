@@ -1,20 +1,20 @@
 import "../styles/userNameChange.css";
 
 export default function UserNameChange({
-  currentUser,
+  formData,
   setUserChange,
   handleChange,
 }) {
+  
   return (
     <div className="container-change">
       <div className="container-change-col">
         <input
           type="text"
           id="firstName"
-          placeholder={currentUser.firstName}
+          placeholder={formData.firstName}
           onChange={handleChange}
           autoComplete="false"
-          // onChange={(e) => setUserFirstName(e.target.value)}
         />
         <button className="container-change-button">Save</button>
       </div>
@@ -22,9 +22,8 @@ export default function UserNameChange({
         <input
           type="text"
           id="lastName"
-          placeholder={currentUser.lastName}
+          placeholder={formData.lastName}
           onChange={handleChange}
-          // onChange={(e) => setUserLastName(e.target.value)}
         />
         <button
           className="container-change-button"

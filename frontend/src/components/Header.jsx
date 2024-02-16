@@ -7,7 +7,7 @@ import logo from "../assets/argentBankLogo.png";
 import "../index.css";
 import "../styles/header.css";
 
-const Header = () => {
+const Header = ({ formData }) => {
   const localWindow =
     window.location.href === "http://localhost:3000/user/profile/";
 
@@ -21,15 +21,21 @@ const Header = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      {localWindow ? (
-        <Link
-          to="/user/login"
-          className="main-nav-item"
-          onClick={deleteUserStorage}
-        >
-          <i className="fa fa-user-circle"></i>
-          Sign Out
-        </Link>
+      {localWindow && formData ? (
+        <div>
+          <Link className="main-nav-item">
+            <i className="fa fa-user-circle"></i>
+            {formData.firstName}
+          </Link>
+          <Link
+            to="/user/login"
+            className="main-nav-item"
+            onClick={deleteUserStorage}
+          >
+            <i className="fa fa-sign-out"></i>
+            Sign Out
+          </Link>
+        </div>
       ) : (
         <Link to="/user/login" className="main-nav-item">
           <i className="fa fa-user-circle"></i>

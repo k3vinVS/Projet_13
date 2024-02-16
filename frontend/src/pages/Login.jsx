@@ -25,7 +25,7 @@ const Login = () => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -38,14 +38,10 @@ const Login = () => {
     try {
       dispatch(setUserStart());
       const userTokenData = await getUserToken(formData);
-      const userToken = userTokenData.body.token;
-      localStorage.setItem("userToken", userToken);
 
-      const userData = await getUserProfile(userToken);
-      // console.log(userData);
+      const userData = await getUserProfile(userTokenData);
       dispatch(setUserData(userData));
 
-      // dispatch(setUserData(formData));
       navigate("/user/profile/");
     } catch (error) {
       dispatch(setUserFailure(error.message));

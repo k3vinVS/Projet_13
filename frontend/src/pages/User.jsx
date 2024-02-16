@@ -24,20 +24,24 @@ import { useNavigate } from "react-router-dom";
 const User = () => {
   const [usersContent, setUsersContent] = useState([]);
   const [userChange, setUserChange] = useState(false);
-  const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState(() => {
     const savedUser = localStorage.getItem("userData");
     return savedUser ? JSON.parse(savedUser) : null;
   });
+  // const { currentUser } = useSelector((state) => state.user);
+  // console.log(currentUser);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // console.log(formData);
-  // console.log(currentUser);
-
   useEffect(() => {
+    // DATA USER ACCOUNT -----
     setUsersContent(amountContent);
+
+    // USER DATA -----
     dispatch(setUserData(formData));
+
+    // IF USER DATA IS UNDEFINED, GO TO THE SIGN-IN PAGE -----
     if (!formData) {
       navigate("/user/login");
     }
@@ -62,20 +66,20 @@ const User = () => {
 
   return (
     <div className="container">
-      <Header />
-      {currentUser !== null ? (
+      <Header formData={formData} />
+      {formData ? (
         <main className="main bg-dark">
           <div className="header">
             <h1>
               Welcome back
               <br />
-              {currentUser.firstName} {currentUser.lastName}!
+              {formData.firstName} {formData.lastName}!
             </h1>
             <div>
               {userChange ? (
                 <form onSubmit={handleSubmit}>
                   <UserNameChange
-                    currentUser={currentUser}
+                    formData={formData}
                     setUserChange={setUserChange}
                     handleChange={handleChange}
                   />
