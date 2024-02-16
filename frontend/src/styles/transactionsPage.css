@@ -1,0 +1,58 @@
+.account-header {
+  border: 2px solid lightgray;
+  height: auto;
+  background-color: white;
+}
+
+.account-header-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 2rem auto;
+}
+.account-checking,
+.account-content,
+.account-balance {
+  margin: 0;
+}
+
+.account-checking {
+  font-size: 0.9rem;
+}
+
+.account-content {
+  font-weight: bold;
+}
+
+.account-balance {
+  font-size: 0.8rem;
+}
+
+.account-transaction {
+  display: flex;
+  flex-direction: column;
+  margin: 6rem 4rem 2rem 4rem;
+}
+
+.account-transaction-container {
+  display: flex;
+  /* gap: 6rem; */
+  margin: auto 1rem;
+  justify-content: space-between;
+  color: white;
+}
+
+.container-left {
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+.container-right {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.account-transaction-title {
+  padding: 0.5rem;
+}

@@ -1,7 +1,83 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import Header from "../components/Header";
+import Transaction from "../components/Transaction";
+// import { useSelector } from "react-redux";
 
-export default function Transactions() {
+// DATA TRANSACTION -----
+import { transactionsContent } from "../mocks/data.js";
+
+// Styles -----
+import "../styles/transactionsPage.css";
+import "../styles/transactionComponent.css";
+import "../index.css";
+import Footer from "../components/Footer.jsx";
+
+export default function Transactions({ formData }) {
+  const [transactionContent, setTransactionContent] = useState([]);
+
+  useEffect(() => {
+    setTransactionContent(transactionsContent);
+  }, []);
+
+  console.log(transactionContent);
+
   return (
-    <div></div>
-  )
+    <div className="container">
+      <Header formData={formData} />
+      <main className="bg-dark">
+        <div className="account-header">
+          <span className="account-header-container">
+            <p className="account-checking">Argent Bank Checking (x8349)</p>
+            <h1 className="account-content">$2,082.79</h1>
+            <p className="account-balance">Available Balance</p>
+          </span>
+        </div>
+        <div className="account-transaction">
+          <div className="account-transaction-container">
+            <div className="container-left">
+              <span
+                className="account-transaction-title
+                    "
+              >
+                Date
+              </span>
+              <span
+                className="account-transaction-title
+                    "
+              >
+                Description
+              </span>
+            </div>
+            <div className="container-right">
+              <span
+                className="account-transaction-title
+                    "
+              >
+                Amount
+              </span>
+              <span
+                className="account-transaction-title
+                    "
+              >
+                Balance
+              </span>
+            </div>
+          </div>
+          {transactionContent.map((content, index) => (
+            <Transaction
+              key={index}
+              date={content.date}
+              description={content.description}
+              amount={content.amount}
+              balance={content.balance}
+              type={content.type}
+              category={content.category}
+              notes={content.notes}
+            />
+          ))}
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
 }

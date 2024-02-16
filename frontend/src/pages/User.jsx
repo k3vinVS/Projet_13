@@ -6,13 +6,13 @@ import AccountWrapper from "../components/AccountWrapper";
 import Footer from "../components/Footer";
 
 // CONTENTS FOR COMPONENTS FEATURES -----
-import { amountContent } from "../mocks/data";
+import { amountContent } from "../mocks/data.js";
 
 // STYLES -----
 import "../index.css";
 import "../styles/user.css";
 import "../styles/accountWrapper.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import UserNameChange from "../components/UserNameChange";
 import {
   setUserStart,

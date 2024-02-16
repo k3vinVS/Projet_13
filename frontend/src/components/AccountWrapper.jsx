@@ -1,7 +1,5 @@
 import React from "react";
-
-// STYLES -----
-// import "../styles/accountWrapper.css";
+import { Link } from "react-router-dom";
 
 const AccountWrapper = ({ title, amount, description }) => {
   return (
@@ -11,9 +9,12 @@ const AccountWrapper = ({ title, amount, description }) => {
         <p className="account-amount">{amount}</p>
         <p className="account-amount-description">{description}</p>
       </div>
-      <div className="account-content-wrapper cta">
+      <Link
+        to="/user/profile/transactions"
+        className="account-content-wrapper cta"
+      >
         <button className="transaction-button">View transactions</button>
-      </div>
+      </Link>
     </section>
   );
 };
