@@ -34,34 +34,10 @@ export default function Transactions({ formData }) {
         </div>
         <div className="account-transaction">
           <div className="account-transaction-container">
-            <div className="container-left">
-              <span
-                className="account-transaction-title
-                    "
-              >
-                Date
-              </span>
-              <span
-                className="account-transaction-title
-                    "
-              >
-                Description
-              </span>
-            </div>
-            <div className="container-right">
-              <span
-                className="account-transaction-title
-                    "
-              >
-                Amount
-              </span>
-              <span
-                className="account-transaction-title
-                    "
-              >
-                Balance
-              </span>
-            </div>
+            <div className="account-transaction-title">Date</div>
+            <div className="account-transaction-title">Description</div>
+            <div className="account-transaction-title">Amount</div>
+            <div className="account-transaction-title">Balance</div>
           </div>
           {transactionContent.map((content, index) => (
             <Transaction
