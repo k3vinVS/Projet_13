@@ -29,8 +29,20 @@ export default function Transaction({
       </div>
       <div className={showContentClass}>
         <div className="content-hidden">Transaction Type: {type}</div>
-        <div className="content-hidden">Category: {category}</div>
-        <div className="content-hidden">Notes: {notes}</div>
+        <div className="content-hidden">
+          Category: {category}
+          <i
+            className="fa fa-solid fa-pencil"
+            onClick={() => console.log("pencil click")}
+          ></i>
+        </div>
+        <div className="content-hidden">
+          Notes: {notes}
+          <i
+            className="fa fa-solid fa-pencil"
+            onClick={() => console.log("pencil click")}
+          ></i>
+        </div>
       </div>
     </div>
   );
