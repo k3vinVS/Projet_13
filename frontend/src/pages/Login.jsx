@@ -40,7 +40,6 @@ const Login = () => {
       const userTokenData = await getUserToken(formData);
       const userData = await getUserProfile(userTokenData);
       dispatch(setUserData(userData));
-      console.log(userData);
 
       navigate("/user/profile/");
     } catch (error) {

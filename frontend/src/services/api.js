@@ -54,7 +54,7 @@ export const updateUserName = async (formData) => {
 
 // DELETE THE LOCALSTORAGE OF USER -----
 export const deleteUserStorage = () => {
-  // const deleteUserData = localStorage.clear();
-  const deleteUserData = localStorage.removeItem("userToken");
+  const deleteUserData = localStorage.clear();
+  // const deleteUserData = localStorage.removeItem("userToken");
   return deleteUserData;
 };
