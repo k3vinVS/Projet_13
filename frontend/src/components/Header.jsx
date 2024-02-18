@@ -21,9 +21,9 @@ const Header = ({ formData }) => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      {localWindow && formData ? (
+      {(localWindow && formData) || formData ? (
         <div>
-          <Link className="main-nav-item">
+          <Link className="main-nav-item" to="/user/profile">
             <i className="fa fa-user-circle"></i>
             {formData.firstName}
           </Link>

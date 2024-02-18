@@ -7,17 +7,19 @@ import Footer from "../components/Footer";
 
 // CONTENTS FOR COMPONENTS FEATURES -----
 import { amountContent } from "../mocks/data.js";
+// import { getUserProfile } from "../services/api";
+import { updateUserName } from "../services/api";
 
 // STYLES -----
 import "../index.css";
 import "../styles/user.css";
 import "../styles/accountWrapper.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserNameChange from "../components/UserNameChange";
 import {
-  setUserStart,
+  // setUserStart,
   setUserData,
-  setUserFailure,
+  // setUserFailure,
 } from "../feature/userSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -28,11 +30,16 @@ const User = () => {
     const savedUser = localStorage.getItem("userData");
     return savedUser ? JSON.parse(savedUser) : null;
   });
-  // const { currentUser } = useSelector((state) => state.user);
-  // console.log(currentUser);
+  // const currentUser = useSelector((state) => state.user);
+  // const [userName, setUserName] = useState({
+  //   firstName: user.firstName,
+  //   lastName: user.lastName,
+  // });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // console.log(formData);
 
   useEffect(() => {
     // DATA USER ACCOUNT -----
@@ -47,20 +54,24 @@ const User = () => {
     }
   }, [dispatch, navigate, formData]);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     e.preventDefault();
+
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     localStorage.setItem("userData", JSON.stringify(formData));
     dispatch(setUserData(formData));
+    updateUserName(formData);
     setUserChange(false);
-    console.log("Update successfully", formData);
+    alert("Update UserName successfully");
+    console.log("Update UserName successfully", formData);
     return formData;
   };
 

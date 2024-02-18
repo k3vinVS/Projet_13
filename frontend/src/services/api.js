@@ -16,7 +16,6 @@ export const getUserToken = async (formData) => {
 // GET THE DATA OF THE USER -----
 export const getUserProfile = async (formData) => {
   try {
-    // getUserToken(formData);
     const res = await fetch("http://localhost:3001/api/v1/user/profile", {
       method: "POST",
       headers: {
@@ -36,9 +35,26 @@ export const getUserProfile = async (formData) => {
   }
 };
 
+// UPDATE FIRSTNAME & LASTNAME OF USER -----
+export const updateUserName = async (formData) => {
+  const userToken = localStorage.getItem("userToken");
+  const res = await fetch("http://localhost:3001/api/v1/user/profile", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userToken}`,
+    },
+    body: JSON.stringify(formData),
+  });
+  const data = await res.json();
+  formData = data;
+  // console.log(formData.body);
+  return formData.body;
+};
+
 // DELETE THE LOCALSTORAGE OF USER -----
 export const deleteUserStorage = () => {
-  const deleteUserData = localStorage.clear();
-  console.log("test");
+  // const deleteUserData = localStorage.clear();
+  const deleteUserData = localStorage.removeItem("userToken");
   return deleteUserData;
 };

@@ -5,10 +5,9 @@ export default function UserNameChange({
   setUserChange,
   handleChange,
 }) {
-  
   return (
     <div className="container-change">
-      <div className="container-change-col">
+      <div className="container-change-col-1">
         <input
           type="text"
           id="firstName"
@@ -16,15 +15,15 @@ export default function UserNameChange({
           onChange={handleChange}
           autoComplete="false"
         />
-        <button className="container-change-button">Save</button>
-      </div>
-      <div className="container-change-col">
         <input
           type="text"
           id="lastName"
           placeholder={formData.lastName}
           onChange={handleChange}
         />
+      </div>
+      <div className="container-change-col-2">
+        <button className="container-change-button">Save</button>
         <button
           className="container-change-button"
           onClick={() => setUserChange(false)}

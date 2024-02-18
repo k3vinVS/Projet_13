@@ -18,6 +18,12 @@ import "../styles/features.css";
 
 const Home = () => {
   const [features, setFeatures] = useState([]);
+  const [formData, setFormData] = useState(() => {
+    const savedUser = localStorage.getItem("userData");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  console.log(formData);
 
   useEffect(() => {
     setFeatures(contentFeature);
@@ -25,7 +31,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      <Header />
+      <Header formData={formData} />
       <main className="main">
         <Hero />
         <section className="features">

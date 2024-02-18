@@ -23,9 +23,10 @@ import { getUserToken } from "../services/api";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -37,9 +38,9 @@ const Login = () => {
     try {
       dispatch(setUserStart());
       const userTokenData = await getUserToken(formData);
-
       const userData = await getUserProfile(userTokenData);
       dispatch(setUserData(userData));
+      console.log(userData);
 
       navigate("/user/profile/");
     } catch (error) {
