@@ -44,7 +44,7 @@ const User = () => {
 
     // IF USER DATA IS UNDEFINED, GO TO THE SIGN-IN PAGE -----
     if (!formData) {
-      navigate("/user/login");
+      navigate("/login");
     }
   }, [dispatch, navigate, formData]);
 

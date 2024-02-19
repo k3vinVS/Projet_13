@@ -41,7 +41,7 @@ const Login = () => {
       const userData = await getUserProfile(userTokenData);
       dispatch(setUserData(userData));
 
-      navigate("/user/profile/");
+      navigate("/user");
     } catch (error) {
       dispatch(setUserFailure(error.message));
     }

@@ -9,10 +9,7 @@ const AccountWrapper = ({ title, amount, description }) => {
         <p className="account-amount">{amount}</p>
         <p className="account-amount-description">{description}</p>
       </div>
-      <Link
-        to="/user/profile/transactions"
-        className="account-content-wrapper cta"
-      >
+      <Link to="/user/transactions" className="account-content-wrapper cta">
         <button className="transaction-button">View transactions</button>
       </Link>
     </section>

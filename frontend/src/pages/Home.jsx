@@ -23,8 +23,6 @@ const Home = () => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  console.log(formData);
-
   useEffect(() => {
     setFeatures(contentFeature);
   }, []);

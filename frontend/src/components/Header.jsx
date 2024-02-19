@@ -23,12 +23,12 @@ const Header = ({ formData }) => {
       </Link>
       {(localWindow && formData) || formData ? (
         <div>
-          <Link className="main-nav-item" to="/user/profile">
+          <Link className="main-nav-item" to="/user">
             <i className="fa fa-user-circle"></i>
             {formData.firstName}
           </Link>
           <Link
-            to="/user/login"
+            to="/login"
             className="main-nav-item"
             onClick={deleteUserStorage}
           >
@@ -37,7 +37,7 @@ const Header = ({ formData }) => {
           </Link>
         </div>
       ) : (
-        <Link to="/user/login" className="main-nav-item">
+        <Link to="/login" className="main-nav-item">
           <i className="fa fa-user-circle"></i>
           Sign In
         </Link>
