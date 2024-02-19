@@ -7,14 +7,13 @@ import Footer from "../components/Footer";
 
 // CONTENTS FOR COMPONENTS FEATURES -----
 import { amountContent } from "../mocks/data.js";
-// import { getUserProfile } from "../services/api";
 import { updateUserName } from "../services/api";
 
 // STYLES -----
 import "../index.css";
 import "../styles/user.css";
 import "../styles/accountWrapper.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import UserNameChange from "../components/UserNameChange";
 import {
   // setUserStart,
@@ -30,11 +29,6 @@ const User = () => {
     const savedUser = localStorage.getItem("userData");
     return savedUser ? JSON.parse(savedUser) : null;
   });
-  // const currentUser = useSelector((state) => state.user);
-  // const [userName, setUserName] = useState({
-  //   firstName: user.firstName,
-  //   lastName: user.lastName,
-  // });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

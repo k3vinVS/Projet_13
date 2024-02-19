@@ -18,7 +18,7 @@ import "../styles/features.css";
 
 const Home = () => {
   const [features, setFeatures] = useState([]);
-  const [formData, setFormData] = useState(() => {
+  const [formData] = useState(() => {
     const savedUser = localStorage.getItem("userData");
     return savedUser ? JSON.parse(savedUser) : null;
   });

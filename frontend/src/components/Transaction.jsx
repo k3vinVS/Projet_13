@@ -10,6 +10,9 @@ export default function Transaction({
   notes,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClickedCategory, setIsClickedCategory] = useState(false);
+  const [isClickedNote, setIsClickedNote] = useState(false);
+  const [selectChange, setSelectChange] = useState("");
   const showContent = () => {
     setIsOpen(!isOpen);
   };
@@ -17,6 +20,10 @@ export default function Transaction({
   const showContentArrow = isOpen
     ? "fa fa-solid fa-chevron-up"
     : "fa fa-solid fa-chevron-down";
+
+  const handleChange = (e) => {
+    setSelectChange(e.target.value);
+  };
 
   return (
     <div className="component-container">
@@ -30,18 +37,39 @@ export default function Transaction({
       <div className={showContentClass}>
         <div className="content-hidden">Transaction Type: {type}</div>
         <div className="content-hidden">
-          Category: {category}
-          <i
-            className="fa fa-solid fa-pencil"
-            onClick={() => console.log("pencil click")}
-          ></i>
+          Category:
+          {isClickedCategory ? (
+            <>
+              <select value={selectChange} onChange={handleChange}>
+                <option value={category}>{category}</option>
+                <option value="House">House</option>
+              </select>
+              <button onClick={() => setIsClickedCategory(false)}>Add</button>
+            </>
+          ) : (
+            <>
+              {" "}
+              {category ? selectChange : category}
+              <i
+                className="fa fa-solid fa-pencil"
+                onClick={() => setIsClickedCategory(true)}
+              ></i>
+            </>
+          )}
         </div>
         <div className="content-hidden">
           Notes: {notes}
-          <i
-            className="fa fa-solid fa-pencil"
-            onClick={() => console.log("pencil click")}
-          ></i>
+          {isClickedNote ? (
+            <>
+              <input type="text" />
+              <button onClick={() => setIsClickedNote(false)}>Add</button>
+            </>
+          ) : (
+            <i
+              className="fa fa-solid fa-pencil"
+              onClick={() => setIsClickedNote(true)}
+            ></i>
+          )}
         </div>
       </div>
     </div>

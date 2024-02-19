@@ -15,7 +15,7 @@ import Footer from "../components/Footer.jsx";
 
 export default function Transactions() {
   const [transactionContent, setTransactionContent] = useState([]);
-  const [formData, setFormData] = useState(() => {
+  const [formData] = useState(() => {
     const savedUser = localStorage.getItem("userData");
     return savedUser ? JSON.parse(savedUser) : null;
   });
