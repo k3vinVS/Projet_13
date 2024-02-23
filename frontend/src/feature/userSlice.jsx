@@ -4,6 +4,7 @@ const initialState = {
   currentUser: null,
   error: null,
   loading: false,
+  rememberMe: false,
 };
 
 const userSlice = createSlice({
@@ -22,8 +23,25 @@ const userSlice = createSlice({
       state.error = payload;
       state.loading = false;
     },
+    setUserDelete: (state) => {
+      state.currentUser = null;
+      state.loading = false;
+      state.error = null;
+      state.rememberMe = false;
+    },
+    setUserStorage: (state) => {
+      state.rememberMe = true;
+    },
   },
 });
 
-export const { setUserStart, setUserData, setUserFailure } = userSlice.actions;
+export const {
+  setUserStart,
+  setUserData,
+  setUserFailure,
+  setUserUpdate,
+  setUserDelete,
+  setUserStorage,
+  setUserReset,
+} = userSlice.actions;
 export default userSlice.reducer;

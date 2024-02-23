@@ -1,5 +1,7 @@
 import React from "react";
-// import "../styles/features.css";
+
+// STYLES -----
+import "../styles/features.css";
 
 const Features = ({ img, title, content }) => {
   return (

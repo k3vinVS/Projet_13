@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+
+// STYLES -----
 import "../styles/error.css";
 
 const Error = () => {

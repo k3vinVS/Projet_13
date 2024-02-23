@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+// STYLES -----
+import "../styles/transactionComponent.css";
+
 export default function Transaction({
   date,
   description,

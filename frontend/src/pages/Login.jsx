@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
+
+// API'S FUNCTIONS -----
+import { getUserProfile } from "../services/api";
+import { getUserToken } from "../services/api";
 
 // REDUX -----
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +11,7 @@ import {
   setUserStart,
   setUserData,
   setUserFailure,
+  setUserStorage,
 } from "../feature/userSlice";
 
 // COMPONENTS -----
@@ -18,18 +22,19 @@ import InputForm from "../components/InputForm";
 // STYLES -----
 import "../index.css";
 import "../styles/login.css";
-import { getUserProfile } from "../services/api";
-import { getUserToken } from "../services/api";
 
 const Login = () => {
-  const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const [formUserData, setFormUserData] = useState({});
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const userLocalStorage = localStorage.getItem("userData");
+  const userInfos = JSON.parse(userLocalStorage);
+  // console.log(userInfos);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormUserData({ ...formUserData, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -37,9 +42,13 @@ const Login = () => {
 
     try {
       dispatch(setUserStart());
-      const userTokenData = await getUserToken(formData);
+      const userTokenData = await getUserToken(formUserData);
       const userData = await getUserProfile(userTokenData);
       dispatch(setUserData(userData));
+      if (formUserData.rememberMe) {
+        localStorage.setItem("userData", JSON.stringify(userData));
+        dispatch(setUserStorage());
+      }
 
       navigate("/user");
     } catch (error) {
@@ -49,19 +58,19 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Header />
+      <Header formData={currentUser || userInfos} />
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
+          <form>
             <InputForm
               className="input-wrapper"
-              htmlFor="username"
-              content="Username"
+              htmlFor="email"
+              content="email"
               type="text"
               id="email"
-              handleChange={handleChange}
+              onChange={handleChange}
             />
             <InputForm
               className="input-wrapper"
@@ -69,27 +78,23 @@ const Login = () => {
               content="Password"
               type="password"
               id="password"
-              handleChange={handleChange}
+              onChange={handleChange}
             />
             <InputForm
               className="input-remember"
-              htmlFor="remember-me"
-              content="Remember me"
+              htmlFor="rememberMe"
+              content="RememberMe"
               type="checkbox"
-              id="remember-me"
+              id="rememberMe"
+              onChange={handleChange}
             />
-            {/* <Link to="/user/profile" className="sign-in-button">
-              Sign In
-            </Link> */}
-            {/* <Link>
-              <button
-                className="sign-in-button"
-                onSubmit={(e) => handleSubmit(e)}
-              >
-                Sign In
-              </button>
-            </Link> */}
-            <button disabled={loading} className="sign-in-button" type="submit">
+
+            <button
+              disabled={loading}
+              className="sign-in-button"
+              type="submit"
+              onClick={handleSubmit}
+            >
               {loading ? "Loading..." : "Sign In"}
             </button>
           </form>

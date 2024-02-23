@@ -1,15 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+// API'S FUNCTIONS -----
 import { deleteUserStorage } from "../services/api";
 
+// REDUX -----
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDelete } from "../feature/userSlice";
+
 // STYLES -----
-import logo from "../assets/argentBankLogo.png";
 import "../index.css";
 import "../styles/header.css";
+import logo from "../assets/argentBankLogo.png";
 
 const Header = ({ formData }) => {
-  const localWindow =
-    window.location.href === "http://localhost:3000/user/profile/";
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
+
+  const handleDelete = (e) => {
+    dispatch(setUserDelete());
+    deleteUserStorage();
+    navigate("/login");
+  };
 
   return (
     <div className="main-nav">
@@ -21,17 +34,13 @@ const Header = ({ formData }) => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      {(localWindow && formData) || formData ? (
+      {currentUser || formData ? (
         <div>
           <Link className="main-nav-item" to="/user">
             <i className="fa fa-user-circle"></i>
-            {formData.firstName}
+            {currentUser ? currentUser.firstName : formData.firstName}
           </Link>
-          <Link
-            to="/login"
-            className="main-nav-item"
-            onClick={deleteUserStorage}
-          >
+          <Link to="/login" className="main-nav-item" onClick={handleDelete}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </Link>

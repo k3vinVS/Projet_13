@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
+
+// COMPONENTS -----
 import Header from "../components/Header";
 import Transaction from "../components/Transaction";
-// import { useSelector } from "react-redux";
+import Footer from "../components/Footer.jsx";
 
-// DATA TRANSACTION -----
+// CONTENTS FOR COMPONENTS FEATURES -----
 import { transactionsContent } from "../mocks/data.js";
 
-// Styles -----
-import "../styles/transactionsPage.css";
-import "../styles/transactionComponent.css";
+// STYLES -----
 import "../index.css";
-import Footer from "../components/Footer.jsx";
-// import { useSelector } from "react-redux";
+import "../styles/transactionsPage.css";
 
 export default function Transactions() {
   const [transactionContent, setTransactionContent] = useState([]);

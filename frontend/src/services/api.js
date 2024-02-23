@@ -1,3 +1,4 @@
+
 // GET THE TOKEN OF THE USER -----
 export const getUserToken = async (formData) => {
   const res = await fetch("http://localhost:3001/api/v1/user/login", {
@@ -27,7 +28,6 @@ export const getUserProfile = async (formData) => {
     const data = await res.json();
     const user = data.body;
     // console.log("informations utilisateur", user);
-    localStorage.setItem("userData", JSON.stringify(user));
     return user;
   } catch (error) {
     console.log(error);
@@ -54,7 +54,5 @@ export const updateUserName = async (formData) => {
 
 // DELETE THE LOCALSTORAGE OF USER -----
 export const deleteUserStorage = () => {
-  const deleteUserData = localStorage.clear();
-  // const deleteUserData = localStorage.removeItem("userToken");
-  return deleteUserData;
+  localStorage.clear();
 };

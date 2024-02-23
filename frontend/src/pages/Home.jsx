@@ -9,12 +9,8 @@ import Features from "../components/Features";
 // CONTENTS FOR COMPONENTS FEATURES -----
 import { contentFeature } from "../mocks/data";
 
-// REDUX -----
-// import { useDispatch, useSelector } from "react-redux";
-
 // STYLES -----
 import "../index.css";
-import "../styles/features.css";
 
 const Home = () => {
   const [features, setFeatures] = useState([]);

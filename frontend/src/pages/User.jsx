@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// API'S FUNCTIONS -----
+import { updateUserName } from "../services/api";
+
+// REDUX -----
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../feature/userSlice";
 
 // COMPONENTS -----
 import Header from "../components/Header";
 import AccountWrapper from "../components/AccountWrapper";
+import UserNameChange from "../components/UserNameChange";
 import Footer from "../components/Footer";
 
 // CONTENTS FOR COMPONENTS FEATURES -----
 import { amountContent } from "../mocks/data.js";
-import { updateUserName } from "../services/api";
 
 // STYLES -----
 import "../index.css";
 import "../styles/user.css";
-import "../styles/accountWrapper.css";
-import { useDispatch } from "react-redux";
-import UserNameChange from "../components/UserNameChange";
-import {
-  // setUserStart,
-  setUserData,
-  // setUserFailure,
-} from "../feature/userSlice";
-import { useNavigate } from "react-router-dom";
 
 const User = () => {
   const [usersContent, setUsersContent] = useState([]);
@@ -29,29 +28,30 @@ const User = () => {
     const savedUser = localStorage.getItem("userData");
     return savedUser ? JSON.parse(savedUser) : null;
   });
-
+  const { currentUser, rememberMe } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // console.log(formData);
 
   useEffect(() => {
     // DATA USER ACCOUNT -----
     setUsersContent(amountContent);
 
     // USER DATA -----
-    dispatch(setUserData(formData));
+    dispatch(setUserData(currentUser));
 
-    // IF USER DATA IS UNDEFINED, GO TO THE SIGN-IN PAGE -----
-    if (!formData) {
+    // IF USER DATA FROM THE STORE IS UNDEFINED, GO TO THE SIGN-IN PAGE -----
+    if (formData) {
+      navigate("/user");
+    } else if (!currentUser) {
       navigate("/login");
     }
-  }, [dispatch, navigate, formData]);
+  }, [dispatch, navigate, currentUser, formData]);
 
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     e.preventDefault();
 
     setFormData({
+      ...currentUser,
       ...formData,
       [e.target.id]: e.target.value,
     });
@@ -60,31 +60,36 @@ const User = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    localStorage.setItem("userData", JSON.stringify(formData));
+    if (rememberMe) {
+      localStorage.setItem("userData", JSON.stringify(formData));
+    }
     dispatch(setUserData(formData));
     updateUserName(formData);
     setUserChange(false);
     alert("Update UserName successfully");
     console.log("Update UserName successfully", formData);
-    return formData;
+    return { currentUser, formData };
   };
 
   return (
     <div className="container">
-      <Header formData={formData} />
-      {formData ? (
+      <Header formData={currentUser || formData} />
+      {currentUser || formData ? (
         <main className="main bg-dark">
           <div className="header">
             <h1>
               Welcome back
               <br />
-              {formData.firstName} {formData.lastName}!
+              {currentUser
+                ? `${currentUser.firstName} ${currentUser.lastName}`
+                : `${formData.firstName} ${formData.lastName}`}
+              !
             </h1>
             <div>
               {userChange ? (
                 <form onSubmit={handleSubmit}>
                   <UserNameChange
-                    formData={formData}
+                    formData={currentUser ? currentUser : formData}
                     setUserChange={setUserChange}
                     handleChange={handleChange}
                   />

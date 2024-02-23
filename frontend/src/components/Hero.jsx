@@ -1,4 +1,6 @@
 import React from "react";
+
+// STYLES -----
 import "../styles/hero.css";
 
 const Hero = () => {

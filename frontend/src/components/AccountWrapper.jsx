@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// STYLES -----
+import "../styles/accountWrapper.css";
+
 const AccountWrapper = ({ title, amount, description }) => {
   return (
     <section className="account">
